@@ -1,0 +1,48 @@
+{% extends 'prof/profdashboard.html.twig' %}
+
+{% block title %}Review Index{% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+    {# Add additional styles specific to the admin_dashboard_admins page if needed #}
+{% endblock %}
+
+{% block main %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Reviewid</th>
+            <th>Coursetitle</th>
+            <th>Reviewername</th>
+            <th>Rating</th>
+            <th>Commenttitle</th>
+            <th>Commentcontent</th>
+            <th>Createdat</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for review in reviews %}
+            <tr>
+                <td>{{ review.reviewid }}</td>
+                <td>{{ review.coursetitle }}</td>
+                <td>{{ review.reviewername }}</td>
+                <td>{{ review.rating }}</td>
+                <td>{{ review.commenttitle }}</td>
+                <td>{{ review.commentcontent }}</td>
+                <td>{{ review.createdat ? review.createdat|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_review_show', {'reviewid': review.reviewid}) }}">Show</a>
+                    <a href="{{ path('app_review_edit', {'reviewid': review.reviewid}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

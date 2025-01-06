@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+{% block navbar %}
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>Coursify</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{{ path('instructor_dashboard') }}" class="nav-item nav-link">Courses</a>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('instructor_dashboard_profile') }}">
+                        <i class="mdi mdi-grid-large menu-icon"></i>
+                        <span class="menu-title">My profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_reclamation_new') }}">
+                        <i class="mdi mdi-grid-large menu-icon"></i>
+                        <span class="menu-title">Reclamation</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_donation_new') }}">
+                        <i class="mdi mdi-grid-large menu-icon"></i>
+                        <span class="menu-title">Donate</span>
+                    </a>
+                </li>
+            </div>
+            {% if app.user %}
+                <a href="{{ path('app_logout') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Logout<i class="fa fa-arrow-right ms-3"></i></a>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
+            {% endif %}
+        </div>
+    </nav>
+    <!-- Navbar End -->
+{% endblock %}
+{% block content %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-16 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <h2>Current Profile Picture:</h2>
+                                <img src="{{ asset('uploads/' ~ instructor.getProfilePicture()) }}" alt="Profile Picture">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th>Id</th>
+                                        <td>{{ instructor.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Username</th>
+                                        <td>{{ instructor.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Password</th>
+                                        <td>{{ instructor.password }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{ instructor.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>FirstName</th>
+                                        <td>{{ instructor.firstName }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>LastName</th>
+                                        <td>{{ instructor.lastName }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>DateOfBirth</th>
+                                        <td>{{ instructor.dateOfBirth ? instructor.dateOfBirth|date('Y-m-d') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Gender</th>
+                                        <td>{{ instructor.gender }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>{{ instructor.address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>PhoneNumber</th>
+                                        <td>{{ instructor.phoneNumber }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ProfilePicture</th>
+                                        <td>{{ instructor.profilePicture }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>UserType</th>
+                                        <td>{{ instructor.userType }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>RegistrationDate</th>
+                                        <td>{{ instructor.registrationDate ? instructor.registrationDate|date('Y-m-d') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>YearsOfExperience</th>
+                                        <td>{{ instructor.yearsOfExperience }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bio</th>
+                                        <td>{{ instructor.bio }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>IsActive</th>
+                                        <td>{{ instructor.isActive ? 'Yes' : 'No' }}</td>
+                                    </tr>
+                                    {% if not instructor.isVerified %}
+                                        <tr>
+                                            <th>Verification</th>
+                                            <td>
+                                                <form action="{{ path('instructor_dashboard_send_verification_code', {'id': instructor.id}) }}" method="POST">
+                                                    <button type="submit">Verify Now</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <th>IsVerified</th>
+                                            <td>
+                                                <!-- Display a verified tick (check mark) -->
+                                                <span style="color: green;">✓ Verified</span>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+
+                                <a href="{{ path('instructor_dashboard') }}">back</a>
+                                                <br>
+                                <a href="{{ path('instructor_dashboard_edit', {'id': instructor.id}) }}">edit</a>
+
+                                {{ include('instructor/_delete_form.html.twig') }}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

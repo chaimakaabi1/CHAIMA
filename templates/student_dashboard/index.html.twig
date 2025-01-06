@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Coursify{% endblock %}
+
+
+{% block navbar %}
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>Coursify</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="courses.html" class="nav-item nav-link">Courses</a>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('student_dashboard_profile') }}">
+                        <i class="mdi mdi-grid-large menu-icon"></i>
+                        <span class="menu-title">My profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_reclamation_new') }}">
+                        <i class="mdi mdi-grid-large menu-icon"></i>
+                        <span class="menu-title">Reclamation</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_donation_new') }}">
+                        <i class="mdi mdi-grid-large menu-icon"></i>
+                        <span class="menu-title">Donate</span>
+                    </a>
+                </li>
+            </div>
+            {% if app.user %}
+                <a href="{{ path('app_logout') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Logout<i class="fa fa-arrow-right ms-3"></i></a>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
+            {% endif %}
+        </div>
+    </nav>
+{% endblock %}
+

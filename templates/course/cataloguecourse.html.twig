@@ -1,0 +1,298 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Coursify{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body {
+            background-color: #f8f9fa; /* Set the background color to grey */
+        }
+
+        .course-title a {
+            color: #000; /* Set the default text color */
+            transition: color 0.3s; /* Add a smooth color transition effect */
+        }
+
+        .course-title a:hover {
+            color: #007bff !important; /* Change the text color on hover */
+            text-decoration: underline; /* Add an underline on hover */
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 50px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        h2 {
+            color: #3498db;
+        }
+
+        p {
+            color: #555;
+        }
+
+        .tabs__nav {
+            background-color: #3498db;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .tabs__link {
+            border: none;
+            outline: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: #fff;
+            background-color: #3498db;
+            border-radius: 4px;
+        }
+
+        .tabs__link.active {
+            background-color: #fff;
+            color: #3498db;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="mb-4">See Courses</h2>
+
+        {# Search Form #}
+        <form class="form-inline" action="{{ path('app_course_search') }}" method="GET">
+            <div class="input-group">
+                <input type="text" class="form-control" id="searchInput" name="searchInput" placeholder="Search by name" style="max-width: 500px; height: 38px; line-height: 35px; margin-right: 10px;">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary mb-2">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="row mt-4">
+            {% for course in courses %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-3" style="border-radius: 15px; overflow: hidden;">
+                        {% set imagePath = asset('uploads/images/' ~ course.image) %}
+                        {% set noImagePath = 'No Image' %}
+
+                        <img src="{{ course.image ? imagePath : noImagePath }}" class="card-img-top" alt="{{ course.title }}" style="object-fit: cover; height: 200px; border-top-left-radius: 10%; border-top-right-radius: 10%; margin-top: -15px;">
+
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex align-items-start course-title">
+                                <h5 class="card-title flex-grow-1">
+                                    <a href="{{ path('app_course_show', {'courseId': course.courseId}) }}" class="text-decoration-none text-dark">
+                                        {{ course.title }}
+                                    </a>
+                                </h5>
+                                <a href="#" class="text-decoration-none heart-icon" data-course-id="{{ course.courseId }}">
+                                    <i class="far fa-heart text-danger"></i>
+                                    <i class="fas fa-heart text-danger" style="display: none;"></i>
+                                </a>
+                            </div>
+
+                            <p class="card-text">{{ course.description }}</p>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    Rating:
+                                    {% for i in range(1, 5) %}
+                                        {% if i <= averageRatings[course.courseId] %}
+                                            <i class="fas fa-star text-warning"></i>
+                                        {% else %}
+                                            <i class="far fa-star text-warning"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {{ averageRatings[course.courseId] }}/5
+                                </li>
+
+                                <li class="list-group-item">
+                                    <i class="far fa-clock" style="color: orange;"></i> {{ random(1, 24) }} hours
+                                    <span style="margin-left: 10px;"></span>
+                                    <i class="fas fa-chalkboard" style="color: blue; margin-left: 5px;"></i> {{ random(1, 10) }} lectures
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card-footer">
+                            <a href="{{ path('app_review_show_student', {'courseId': course.courseId}) }}" class="btn btn-success btn-sm">View Reviews</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-12">
+                    <p>No records found</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        {# Pagination #}
+        <div class="pagination d-flex flex-column align-items-center mt-4">
+            <div class="text-center mb-2">
+                {% set startItem = (currentPage - 1) * perPage + 1 %}
+                {% set endItem = (currentPage - 1) * perPage + courses.count %}
+                Showing {{ startItem }}-{{ endItem }} of {{ totalResults }} results
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    {% if currentPage > 1 %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ path('app_course_indexcatalogue', {'page': currentPage - 1, 'searchInput': searchInput}) }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for page in 1..totalPages %}
+                        <li class="page-item {% if page == currentPage %}active{% endif %}">
+                            <a class="page-link" href="{{ path('app_course_indexcatalogue', {'page': page, 'searchInput': searchInput}) }}">{{ page }}</a>
+                        </li>
+                    {% endfor %}
+
+                    {% if currentPage < totalPages %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ path('app_course_indexcatalogue', {'page': currentPage + 1, 'searchInput': searchInput}) }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        <br>
+        <br>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="text-center">
+                    <h2 class="fs-1 fw-bold">Most Popular Courses</h2>
+                    <p>Choose from hundreds of courses from specialist organizations</p>
+                </div>
+                <div class="col-lg-10 mx-auto">
+                    <div class="tabs__nav d-flex justify-content-evenly flex-wrap rounded-3" style="background-color: #ccc; padding: 10px; border-radius: 15px;">
+                        <button class="btn nav-link tabs__link active rounded" data-tab-link="1" data-tab-content="web-design">Web Design</button>
+                        <button class="btn nav-link tabs__link rounded" data-tab-link="2" data-tab-content="marketing">Marketing</button>
+                        <button class="btn nav-link tabs__link rounded" data-tab-link="3" data-tab-content="design">Design</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    <section class="instructor py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 position-relative">
+                        <div class="position-absolute instructor-circle"></div>
+                        <div class="card instructor-card rounded-instructor px-5 py-4">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-sm-7 text-white">
+                                        <h2 class="fw-bold mb-4 text-instructor-blue">Become a Teacher!</h2>
+                                        <p class="mb-4 text-instructor-light">
+                                            Become an expert in your field and inspire others with your knowledge. Take the lead in shaping the future and making a positive impact. Join us on a journey where learning meets passion, and together, let's create a brighter tomorrow.                                        </p>
+                                    </div>
+                                    <div class="col-sm-5 text-lg-end d-flex justify-content-md-end">
+                                        <a href="#" class="btn btn-instructor-primary btn-lg">Start Teaching Today</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <style>
+            .instructor-circle {
+                width: 150px;
+                height: 150px;
+                background-color: #b3e0f2; /* Light blue */
+                border-radius: 50%;
+                position: absolute;
+                top: 50%;
+                right: 10%;
+                transform: translateY(-50%);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .rounded-instructor {
+                border-radius: 20px;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                background: linear-gradient(to bottom, #3498db, #2c3e50); /* Vertical gradient */
+                position: relative;
+                overflow: hidden;
+                border: none;
+            }
+
+            .instructor-card .card-body {
+                padding: 2rem;
+            }
+
+            .instructor-card h2 {
+                color: #fff;
+            }
+
+            .instructor-card p {
+                color: #f0f0f0;
+            }
+
+            .btn-instructor-primary {
+                color: #fff;
+                background-color: #2980b9;
+                border-color: #2980b9;
+            }
+
+            .btn-instructor-primary:hover {
+                background-color: #1f6070;
+                border-color: #1f6070;
+            }
+
+            /* Additional Colors */
+            .text-instructor-blue {
+                color: #3498db;
+            }
+
+            .text-instructor-light {
+                color: #e0e0e0;
+            }
+        </style>
+
+
+    </div>
+
+    <script>
+        // JavaScript to toggle heart icon on click
+        document.querySelectorAll('.heart-icon').forEach(function (icon) {
+            icon.addEventListener('click', function () {
+                this.querySelector('.fa-heart').classList.toggle('far');
+                this.querySelector('.fa-heart').classList.toggle('fas');
+            });
+        });
+    </script>
+{% endblock %}

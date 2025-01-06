@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Abonnement Index{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="text-center">Abonnement List</h2>
+
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Cours</th>
+                <th>Type</th>
+                <th>Price</th>
+                <th>Date Start</th>
+                <th>Date Expiration</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for abonnement in abonnements %}
+                <tr>
+                    <td>{{ abonnement.idAbonnement }}</td>
+                    <td>{{ abonnement.user }}</td>
+                    <td>{{ abonnement.cours }}</td>
+                    <td>{{ abonnement.typeAbonnement }}</td>
+                    <td>{{ abonnement.price }}</td>
+                    <td>{{ abonnement.dateDebut ? abonnement.dateDebut|date('Y-m-d') : '' }}</td>
+                    <td>{{ abonnement.dateExpiration ? abonnement.dateExpiration|date('Y-m-d') : '' }}</td>
+                    <td>
+                        <a href="{{ path('app_abonnement_show', {'idAbonnement': abonnement.idAbonnement}) }}" class="btn btn-info btn-sm">Show</a>
+                        <a href="{{ path('app_abonnement_edit', {'idAbonnement': abonnement.idAbonnement}) }}" class="btn btn-primary btn-sm">Edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8" class="text-center">No records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_abonnement_new') }}" class="btn btn-success">Create New</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+
+{% block title %}Manage students{% endblock %}
+
+{% block styles %}
+    {{ parent() }} {# This will include the parent styles from the dashboard.html.twig file #}
+    {# Add additional styles specific to the admin_dashboard_admins page if needed #}
+{% endblock %}
+
+{% block main %}
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-16 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <h2>Current Profile Picture:</h2>
+                            <img src="{{ asset('uploads/' ~ admin.getProfilePicture()) }}" alt="Profile Picture">
+    <h1>Edit Admin</h1>
+
+    {{ include('admin/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin_dashboard_admins') }}">back to list</a>
+
+    {{ include('admin/_delete_form.html.twig') }}
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

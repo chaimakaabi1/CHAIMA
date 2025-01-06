@@ -1,0 +1,19 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+app_random_card:
+  path: /random_card
+  controller: App\Controller\CourseController::randomCard
+  methods: ['GET']
+app_default_route:
+  path: /
+  controller: App\Controller\HomeController::index
+
+
+
+
+app_calendar_load_events:
+  path: '/calendar/load-events'
+  controller: App\Controller\CalendarController::loadEvents
+  methods: ['POST']
+

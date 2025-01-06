@@ -1,0 +1,32 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+
+{% block title %}Verify Account{% endblock %}
+
+{% block styles %}
+    {{ parent() }} {# This will include the parent styles from the dashboard.html.twig file #}
+    {# Add additional styles specific to the admin_dashboard_admins page if needed #}
+{% endblock %}
+
+{% block main %}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-16 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+    <h1>Enter Verification Code</h1>
+    <form action="{{ path('admin_dashboard_admins_verify_account', {'id': admin.id}) }}" method="POST">
+        <label for="verification_code">Enter Verification Code:</label>
+        <input type="text" id="verification_code" name="verification_code" required>
+        <button type="submit">Verify Account</button>
+    </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

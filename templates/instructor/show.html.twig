@@ -1,0 +1,103 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+
+{% block title %}Manage students{% endblock %}
+
+{% block styles %}
+    {{ parent() }} {# This will include the parent styles from the dashboard.html.twig file #}
+    {# Add additional styles specific to the admin_dashboard_admins page if needed #}
+{% endblock %}
+
+{% block main %}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-16 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <h2>Current Profile Picture:</h2>
+                            <img src="{{ asset('uploads/' ~ instructor.getProfilePicture()) }}" alt="Profile Picture">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ instructor.id }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ instructor.username }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ instructor.password }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ instructor.email }}</td>
+            </tr>
+            <tr>
+                <th>FirstName</th>
+                <td>{{ instructor.firstName }}</td>
+            </tr>
+            <tr>
+                <th>LastName</th>
+                <td>{{ instructor.lastName }}</td>
+            </tr>
+            <tr>
+                <th>DateOfBirth</th>
+                <td>{{ instructor.dateOfBirth ? instructor.dateOfBirth|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>{{ instructor.gender }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ instructor.address }}</td>
+            </tr>
+            <tr>
+                <th>PhoneNumber</th>
+                <td>{{ instructor.phoneNumber }}</td>
+            </tr>
+            <tr>
+                <th>ProfilePicture</th>
+                <td>{{ instructor.profilePicture }}</td>
+            </tr>
+            <tr>
+                <th>UserType</th>
+                <td>{{ instructor.userType }}</td>
+            </tr>
+            <tr>
+                <th>RegistrationDate</th>
+                <td>{{ instructor.registrationDate ? instructor.registrationDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>YearsOfExperience</th>
+                <td>{{ instructor.yearsOfExperience }}</td>
+            </tr>
+            <tr>
+                <th>Bio</th>
+                <td>{{ instructor.bio }}</td>
+            </tr>
+            <tr>
+                <th>IsActive</th>
+                <td>{{ instructor.isActive ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_dashboard_instructors') }}">back to list</a>
+
+    <a href="{{ path('admin_dashboard_instructors_edit', {'id': instructor.id}) }}">edit</a>
+
+    {{ include('instructor/_delete_form.html.twig') }}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

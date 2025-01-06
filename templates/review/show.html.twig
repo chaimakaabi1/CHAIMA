@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+
+
+    {% block body %}
+        <h1>Review of :{{ review.coursetitle }}</h1>
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Reviewid</th>
+                <td>{{ review.reviewid }}</td>
+            </tr>
+            <tr>
+                <th>Coursetitle</th>
+                <td>{{ review.coursetitle }}</td>
+            </tr>
+            <tr>
+                <th>Reviewername</th>
+                <td>{{ review.reviewername }}</td>
+            </tr>
+            <tr>
+                <th>Rating</th>
+                <td>
+                    <p class="card-text">
+                        {% for i in range(1, 5) %}
+                            {% if i <= review.rating %}
+                                ⭐
+                            {% else %}
+                                ☆
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <th>Commenttitle</th>
+                <td>{{ review.commenttitle }}</td>
+            </tr>
+            <tr>
+                <th>Commentcontent</th>
+                <td>{{ review.commentcontent }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ review.createdat ? review.createdat|date('Y-m-d') : '' }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_review_index') }}">back to list</a>
+
+        <a href="{{ path('app_review_edit', {'reviewid': review.reviewid}) }}">edit</a>
+
+        {{ include('review/_delete_form.html.twig') }}
+    {% endblock %}
+{% endblock %}

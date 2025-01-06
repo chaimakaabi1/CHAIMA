@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Average Rating per Course{% endblock %}
+{% block styles %}
+    <style>
+        /* Add any additional styles here */
+        canvas {
+            max-width: 800px;
+            margin: 20px 0;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Statistics</h1>
+
+    {# Display the chart #}
+    <div>
+        <canvas id="ratingChart" width="600" height="300"></canvas>
+    </div>
+
+
+
+    {# Display the pie chart for the top 3 instructors with most reviews #}
+    <h2 class="mt-5">Top 3 Instructors with Most Reviews (Pie Chart)</h2>
+    <div>
+        <canvas id="instructorPieChart" width="600" height="300"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Bar Chart
+            var ctx = document.getElementById('ratingChart').getContext('2d');
+            var gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, 'rgba(75, 192, 192, 0.6)');
+            gradient.addColorStop(1, 'rgba(75, 192, 192, 0)');
+            var ratingChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [{% for avgRating in avgRatingsByCourse %}"{{ avgRating.courseTitle }}",{% endfor %}],
+                    datasets: [{
+                        label: 'Average Rating',
+                        data: [{% for avgRating in avgRatingsByCourse %}{{ avgRating.averageRating }},{% endfor %}],
+                        backgroundColor: gradient,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        barPercentage: 0.8,
+                        categoryPercentage: 0.7,
+                        hoverBackgroundColor: 'rgba(75, 192, 192, 0.8)',
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 5 // Assuming rating scale is from 0 to 5
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Average Rating per Course',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                            titleColor: '#000',
+                            bodyColor: '#000',
+                            borderColor: 'rgba(0, 0, 0, 0.1)',
+                            borderWidth: 1,
+                            displayColors: false,
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return 'Average Rating: ' + tooltipItem.formattedValue;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000, // Adjust animation duration as needed
+                    }
+                }
+            });
+
+            // Pie Chart
+            var instructorPieCtx = document.getElementById('instructorPieChart').getContext('2d');
+            var instructorPieChart = new Chart(instructorPieCtx, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        {% for instructor in topInstructors %}
+                        "{{ instructor.instructorName }}",
+                        {% endfor %}
+                    ],
+                    datasets: [{
+                        data: [
+                            {% for instructor in topInstructors %}
+                            {{ instructor.reviewCount }},
+                            {% endfor %}
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 205, 86, 0.8)',
+                        ],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Top 3 Instructors with Most Reviews (Pie Chart)',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                            titleColor: '#000',
+                            bodyColor: '#000',
+                            borderColor: 'rgba(0, 0, 0, 0.1)',
+                            borderWidth: 1,
+                            displayColors: false,
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return instructorPieChart.data.labels[tooltipItem.index] +
+                                        ': ' + instructorPieChart.data.datasets[0].data[tooltipItem.index] + ' reviews';
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000, // Adjust animation duration as needed
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

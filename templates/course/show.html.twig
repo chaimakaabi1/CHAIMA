@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+
+
+{% block body %}
+    <h1>Course</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>CourseId</th>
+                <td>{{ course.courseId }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ course.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ course.description }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ course.price }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>
+                    {% if course.image %}
+                        <img src="{{ asset('uploads/images/' ~ course.image) }}" alt="{{ course.title }}" style="max-width: 100px; max-height: 100px;">
+                    {% else %}
+                        No Image
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>IsActive</th>
+                <td>{{ course.isActive ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ course.updatedAt ? course.updatedAt|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ course.createdAt ? course.createdAt|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>CourseContent</th>
+                <td>{{ course.courseContent }}</td>
+            </tr>
+            <tr>
+                <th>InstructorId</th>
+                <td>{{ course.instructorId }}</td>
+            </tr>
+            <tr>
+                <th>InstructorName</th>
+                <td>{{ course.instructorName }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_course_index') }}">back to list</a>
+
+    <a href="{{ path('app_course_edit', {'courseId': course.courseId}) }}">edit</a>
+    <a href="{{ path('app_course_pdf', {'id': course.courseId}) }}">Generate PDF</a>
+
+    {{ include('course/_delete_form.html.twig') }}
+{% endblock %}
+{% endblock %}

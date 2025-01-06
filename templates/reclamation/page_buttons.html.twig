@@ -1,0 +1,47 @@
+
+{% extends 'admin/dashboard.html.twig' %}
+
+
+
+{% block content %}
+    <h1>Boutons</h1>
+    <div class="button-container">
+        <button onclick="window.location.href='{{ path('app_reclamation_index') }}'" class="button">Lister Réclamation</button>
+        <button onclick="window.location.href='{{ path('statistique') }}'" class="button">Statistique</button>
+    </div>
+{% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+    <style>
+        /* Styles CSS pour les boutons */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid #3498db;
+            background-color: #3498db;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+    </style>
+{% endblock %}

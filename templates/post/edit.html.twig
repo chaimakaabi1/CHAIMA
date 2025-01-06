@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Update Comment{% endblock %}
+
+{% block content %} 
+
+<div class="form-group">
+          {{form_start(form)}}
+
+
+
+
+            {{ form_row(form.content ,{ 'attr' : { 'class': 'form-control' } }) }}
+
+
+            <br>
+                       {{ form_row(form.update ,{ 'attr' : { 'class': 'btn btn-primary ' } }) }}
+
+        </div>          {{form_end(form)}}
+
+              </div>
+                    
+{% endblock %}

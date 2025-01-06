@@ -1,0 +1,68 @@
+{# statistiques_reclamations.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Graphique des réclamations par objet</title>
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* CSS styles for better layout */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        canvas {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Graphique des réclamations par objet</h1>
+    <canvas id="reclamationsChart" width="800" height="400"></canvas>
+</div>
+
+<script>
+    // Retrieve data from Symfony and store it in a JavaScript variable
+    const data = {{ reclamationsByObject | json_encode | raw }};
+
+    // Extract labels and values for the chart
+    const labels = data.map(item => item.objet);
+    const values = data.map(item => item.countObjet);
+
+    // Create a context for the chart
+    const ctx = document.getElementById('reclamationsChart').getContext('2d');
+
+    // Create the chart
+    const chart = new Chart(ctx, {
+        type: 'bar', // Choose the chart type (bar, line, pie, etc.)
+        data: {
+            labels: labels, // Use labels as chart labels
+            datasets: [{
+                label: 'Nombre de réclamations par objet',
+                data: values, // Use corresponding values
+                backgroundColor: 'rgba(75, 192, 192, 0.6)', // Background color
+                borderColor: 'rgba(75, 192, 192, 1)', // Border color
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true // Start y-axis from 0
+                }
+            }
+            // Additional chart configurations if needed
+        }
+    });
+</script>
+</body>
+</html>

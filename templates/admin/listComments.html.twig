@@ -1,0 +1,59 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+
+{% block title %}Manage students{% endblock %}
+
+{% block styles %}
+    {{ parent() }} {# This will include the parent styles from the dashboard.html.twig file #}
+    {# Add additional styles specific to the admin_dashboard_admins page if needed #}
+{% endblock %}
+
+{% block main %}
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-16 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Content</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>Likes</th>
+                <th>Dislikes</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for cmnt in cmnts %}
+                <tr>
+                    <td>{{ cmnt.id }}</td>
+                    <td>{{ cmnt.content }}</td>
+                    <td>{{ cmnt.createdAt ? cmnt.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ cmnt.updatedAt ? cmnt.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ cmnt.likes }}</td>
+                    <td>{{ cmnt.dislikes }}</td>
+
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {% endblock %}
+

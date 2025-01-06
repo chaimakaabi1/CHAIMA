@@ -1,0 +1,209 @@
+<?php
+
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Extension\SandboxExtension;
+use Twig\Markup;
+use Twig\Sandbox\SecurityError;
+use Twig\Sandbox\SecurityNotAllowedTagError;
+use Twig\Sandbox\SecurityNotAllowedFilterError;
+use Twig\Sandbox\SecurityNotAllowedFunctionError;
+use Twig\Source;
+use Twig\Template;
+
+/* back/updatePost.html.twig */
+class __TwigTemplate_1fbe3040319a4e186969b356fd4cf033 extends Template
+{
+    private $source;
+    private $macros = [];
+
+    public function __construct(Environment $env)
+    {
+        parent::__construct($env);
+
+        $this->source = $this->getSourceContext();
+
+        $this->blocks = [
+            'body' => [$this, 'block_body'],
+        ];
+    }
+
+    protected function doGetParent(array $context)
+    {
+        // line 2
+        return "baseBack.html.twig";
+    }
+
+    protected function doDisplay(array $context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "back/updatePost.html.twig"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "back/updatePost.html.twig"));
+
+        $this->parent = $this->loadTemplate("baseBack.html.twig", "back/updatePost.html.twig", 2);
+        $this->parent->display($context, array_merge($this->blocks, $blocks));
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+    }
+
+    // line 5
+    public function block_body($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
+
+        echo " 
+  
+
+<div id=\"page-wrapper\">
+    <div id=\"page-inner\">
+        <div class=\"row\">
+            <div class=\"col-md-12\">
+                <h1 class=\"page-head-line\">Add new post</h1>
+
+            </div>
+        </div>
+        <!-- /. ROW  -->
+      
+    
+       
+          <!--   Kitchen Sink -->
+            <div class=\"panel panel-default\">
+        <div class=\"form-group\">
+          ";
+        // line 23
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 23, $this->source); })()), 'form_start');
+        echo "
+
+
+
+
+            ";
+        // line 28
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 28, $this->source); })()), "title", [], "any", false, false, false, 28), 'row', ["attr" => ["class" => "form-control"]]);
+        echo "
+            ";
+        // line 29
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 29, $this->source); })()), "content", [], "any", false, false, false, 29), 'row', ["attr" => ["class" => "form-control"]]);
+        echo "
+            ";
+        // line 30
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 30, $this->source); })()), "student", [], "any", false, false, false, 30), 'row', ["attr" => ["class" => "form-control"]]);
+        echo "
+            ";
+        // line 31
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 31, $this->source); })()), "instructor", [], "any", false, false, false, 31), 'row', ["attr" => ["class" => "form-control"]]);
+        echo "
+
+
+            <br>
+                       ";
+        // line 35
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 35, $this->source); })()), "save", [], "any", false, false, false, 35), 'row', ["attr" => ["class" => "btn btn-primary "]]);
+        echo "
+
+        </div>          ";
+        // line 37
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 37, $this->source); })()), 'form_end');
+        echo "
+
+              </div>
+             
+             <!-- End  Kitchen Sink -->
+        </div>
+        </div></div> </div>
+
+                        ";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getTemplateName()
+    {
+        return "back/updatePost.html.twig";
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function isTraitable()
+    {
+        return false;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getDebugInfo()
+    {
+        return array (  119 => 37,  114 => 35,  107 => 31,  103 => 30,  99 => 29,  95 => 28,  87 => 23,  58 => 5,  35 => 2,);
+    }
+
+    public function getSourceContext()
+    {
+        return new Source(" 
+ {% extends 'baseBack.html.twig' %}
+
+
+{% block body %} 
+  
+
+<div id=\"page-wrapper\">
+    <div id=\"page-inner\">
+        <div class=\"row\">
+            <div class=\"col-md-12\">
+                <h1 class=\"page-head-line\">Add new post</h1>
+
+            </div>
+        </div>
+        <!-- /. ROW  -->
+      
+    
+       
+          <!--   Kitchen Sink -->
+            <div class=\"panel panel-default\">
+        <div class=\"form-group\">
+          {{form_start(form)}}
+
+
+
+
+            {{ form_row(form.title ,{ 'attr' : { 'class': 'form-control' } }) }}
+            {{ form_row(form.content ,{ 'attr' : { 'class': 'form-control' } }) }}
+            {{ form_row(form.student ,{ 'attr' : { 'class': 'form-control' } }) }}
+            {{ form_row(form.instructor ,{ 'attr' : { 'class': 'form-control' } }) }}
+
+
+            <br>
+                       {{ form_row(form.save ,{ 'attr' : { 'class': 'btn btn-primary ' } }) }}
+
+        </div>          {{form_end(form)}}
+
+              </div>
+             
+             <!-- End  Kitchen Sink -->
+        </div>
+        </div></div> </div>
+
+                        {% endblock %}", "back/updatePost.html.twig", "C:\\Users\\hassa\\Videos\\CoursifyWeb\\templates\\back\\updatePost.html.twig");
+    }
+}

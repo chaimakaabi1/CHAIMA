@@ -1,0 +1,12 @@
+
+
+{% block title %}Enter Verification Code{% endblock %}
+
+{% block body %}
+    <h1>Enter Verification Code</h1>
+    <form action="{{ path('student_dashboard_verify_account', {'id': student.id}) }}" method="POST">
+        <label for="verification_code">Enter Verification Code:</label>
+        <input type="text" id="verification_code" name="verification_code" required>
+        <button type="submit">Verify Account</button>
+    </form>
+{% endblock %}

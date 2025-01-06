@@ -1,0 +1,64 @@
+{# templates/reclamation/search.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+        <h1>Search Reclamations</h1>
+        <form method="get" action="{{ path('app_reclamation_search') }}">
+            <div class="form-group">
+                <label for="nom">Nom:</label>
+                <input type="text" class="form-control" id="nom" name="nom">
+            </div>
+            <div class="form-group">
+                <label for="prenom">Prénom:</label>
+                <input type="text" class="form-control" id="prenom" name="prenom">
+            </div>
+            <div class="form-group">
+                <label for="numero_mobile">Numéro Mobile:</label>
+                <input type="text" class="form-control" id="numero_mobile" name="numero_mobile">
+            </div>
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+        </form>
+
+        {% if reclamations is not empty %}
+            <!-- Affichage des résultats de la recherche -->
+            <table class="table">
+                <thead>
+                <tr>
+
+                    <th>NumeroMobile</th>
+                    <th>Description</th>
+                    <th>Objet</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for reclamation in reclamations %}
+                    <tr>
+
+                        <td>{{ reclamation.numeroMobile }}</td>
+                        <td>{{ reclamation.description }}</td>
+                        <td>{{ reclamation.objet }}</td>
+                        <td>{{ reclamation.nom }}</td>
+                        <td>{{ reclamation.prenom }}</td>
+                        <td>{{ reclamation.email }}</td>
+                        <td>{{ reclamation.status }}</td>
+                        <td>
+                            <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">edit</a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucune réclamation trouvée pour ces critères de recherche.</p>
+        {% endif %}
+    </div>
+{% endblock %}

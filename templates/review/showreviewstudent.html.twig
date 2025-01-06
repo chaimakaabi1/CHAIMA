@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    {% block body %}
+        <h1>Reviews</h1>
+
+        <div class="row">
+            {% if reviews is not empty %}
+                {% for review in reviews %}
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Coursetitle: {{ review.coursetitle }}</h5>
+                                <p class="card-text">Reviewername: {{ review.reviewername }}</p>
+                                <p class="card-text">Rating: {% for i in range(1, 5) %}{% if i <= review.rating %}⭐{% else %}☆{% endif %}{% endfor %}</p>
+                                <p class="card-text">Commenttitle: {{ review.commenttitle }}</p>
+                                <p class="card-text">Commentcontent: {{ review.commentcontent }}</p>
+                                <p class="card-text">Createdat: {{ review.createdat ? review.createdat|date('Y-m-d') : '' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12">
+                    <p>No reviews found for this course.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <a href="{{ path('app_review_index') }}" class="btn btn-secondary">See other reviews</a>
+    {% endblock %}
+{% endblock %}

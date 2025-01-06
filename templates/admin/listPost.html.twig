@@ -1,0 +1,68 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+
+{% block title %}Posts{% endblock %}
+
+{% block styles %}
+    {{ parent() }} {# This will include the parent styles from the dashboard.html.twig file #}
+    {# Add additional styles specific to the admin_dashboard_admins page if needed #}
+{% endblock %}
+
+{% block main %}
+
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-16 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive ">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>title</th>
+                                        <th>Content</th>
+                                        <th>created at</th>
+                                        <th>created at</th>
+
+                                        <th>likes</th>
+                                        <th>dislikes</th>
+                                        <th>Student</th>
+                                        <th>Instructor</th>
+
+
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for p in posts %}
+                                        <tr>
+                                            <td>{{p.title}}</td>
+                                            <td>{{p.content}}</td>
+                                            <td>{{p.createdAt|date}}</td>
+                                            <td>{{p.updatedAt|date}}</td>
+                                            <td>{{p.likes}}</td>
+
+                                            <td>{{p.dislikes}}</td>
+                                            <td>{{p.student.firstName}}</td>
+                                            <td>{{p.instructor.firstName}}</td>
+
+                                        </tr>
+
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End  Kitchen Sink -->
+                    </div>
+                </div></div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block title %}Donation{% endblock %}
+{% block styles %}
+    {{ parent() }}
+    {# Add additional styles specific to the admin_dashboard_admins page if needed #}
+{% endblock %}
+{% block main %}
+    <h1>Donation</h1>
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-16 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+
+                        <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ donation.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ donation.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ donation.prenom }}</td>
+            </tr>
+            <tr>
+                <th>NumeroMobile</th>
+                <td>{{ donation.numeroMobile }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ donation.email }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ donation.address }}</td>
+            </tr>
+            <tr>
+                <th>CodePostal</th>
+                <td>{{ donation.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ donation.montant }}</td>
+
+            </tr>
+
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_donation_index') }}">back to list</a>
+
+
+
+    {{ include('donation/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

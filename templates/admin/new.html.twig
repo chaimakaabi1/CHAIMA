@@ -1,0 +1,97 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+
+{% block title %}Manage students{% endblock %}
+
+{% block styles %}
+    {{ parent() }} {# This will include the parent styles from the dashboard.html.twig file #}
+    {# Add additional styles specific to the admin_dashboard_admins page if needed #}
+{% endblock %}
+
+{% block main %}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-16 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+    <h1>Create new Admin</h1>
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div class="form-group ">
+        {{ form_label(form.username) }}
+        {{ form_widget(form.username) }}
+        <div class="alert-danger">  {{ form_errors(form.username) }}  </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.password) }}
+        {{ form_widget(form.password) }}
+        <div class="alert-danger">   {{ form_errors(form.password) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email) }}
+        <div class="alert-danger"> {{ form_errors(form.email) }}
+    </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.firstName) }}
+        {{ form_widget(form.firstName) }}
+        <div class="alert-danger">  {{ form_errors(form.firstName) }}
+    </div> </div>
+
+    <div class="form-group">
+        {{ form_label(form.lastName) }}
+        {{ form_widget(form.lastName) }}
+        <div class="alert-danger">   {{ form_errors(form.lastName) }}
+    </div>  </div>
+
+    <div class="form-group">
+        {{ form_label(form.dateOfBirth) }}
+        {{ form_widget(form.dateOfBirth) }}
+        <div class="alert-danger">  {{ form_errors(form.dateOfBirth) }}
+    </div> </div>
+
+    <div class="form-group">
+        {{ form_label(form.gender) }}
+        {{ form_widget(form.gender) }}
+        <div class="alert-danger">   {{ form_errors(form.gender) }}
+    </div>  </div>
+
+    <div class="form-group">
+        {{ form_label(form.address) }}
+        {{ form_widget(form.address) }}
+        <div class="alert-danger">  {{ form_errors(form.address) }}  </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.phoneNumber) }}
+        {{ form_widget(form.phoneNumber) }}
+        <div class="alert-danger">  {{ form_errors(form.phoneNumber) }} </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.profilePicture) }}
+        {{ form_widget(form.profilePicture) }}
+        <div class="alert-danger">   {{ form_errors(form.profilePicture) }}  </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+
+    {{ form_end(form) }}
+
+    <a href="{{ path('admin_dashboard_admins') }}">back to list</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

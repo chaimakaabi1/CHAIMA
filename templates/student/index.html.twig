@@ -1,0 +1,95 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+
+{% block title %}Manage students{% endblock %}
+
+{% block styles %}
+    {{ parent() }} {# This will include the parent styles from the dashboard.html.twig file #}
+    {# Add additional styles specific to the admin_dashboard_admins page if needed #}
+{% endblock %}
+
+{% block main %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-16 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <form action="{{ path('admin_dashboard_students') }}" method="get">
+                                    <label>
+                                        <input type="text" name="q" placeholder="Search">
+                                    </label>
+                                    <button type="submit">Search</button>
+                                </form>
+
+
+
+
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Username</th>
+                                        <th>Password</th>
+                                        <th>Email</th>
+                                        <th>FirstName</th>
+                                        <th>LastName</th>
+                                        <th>DateOfBirth</th>
+                                        <th>Gender</th>
+                                        <th>Address</th>
+                                        <th>PhoneNumber</th>
+                                        <th>ProfilePicture</th>
+                                        <th>UserType</th>
+                                        <th>RegistrationDate</th>
+                                        <th>CurrentGradeLevel</th>
+                                        <th>Major</th>
+                                        <th>IsActive</th>
+                                        <th>actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for student in students %}
+                                        <tr>
+                                            <td>{{ student.id }}</td>
+                                            <td>{{ student.username }}</td>
+                                            <td>{{ student.password }}</td>
+                                            <td>{{ student.email }}</td>
+                                            <td>{{ student.firstName }}</td>
+                                            <td>{{ student.lastName }}</td>
+                                            <td>{{ student.dateOfBirth ? student.dateOfBirth|date('Y-m-d') : '' }}</td>
+                                            <td>{{ student.gender }}</td>
+                                            <td>{{ student.address }}</td>
+                                            <td>{{ student.phoneNumber }}</td>
+                                            <td>{{ student.profilePicture }}</td>
+                                            <td>{{ student.userType }}</td>
+                                            <td>{{ student.registrationDate ? student.registrationDate|date('Y-m-d') : '' }}</td>
+                                            <td>{{ student.currentGradeLevel }}</td>
+                                            <td>{{ student.major }}</td>
+                                            <td>{{ student.isActive ? 'Yes' : 'No' }}</td>
+                                            <td>
+                                                <a href="{{ path('admin_dashboard_students_show', {'id': student.id}) }}">show</a>
+                                                <a href="{{ path('admin_dashboard_students_edit', {'id': student.id}) }}">edit</a>
+                                                <form method="post" action="{{ path('admin_dashboard_students_toggle_active', {'id': student.id}) }}" style="display: inline;">
+                                                    <button type="submit">Toggle Active</button>
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('toggle' ~ student.id) }}">
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="17">no records found</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                    <a href="{{ path('admin_dashboard_students_new') }}">Create new</a>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

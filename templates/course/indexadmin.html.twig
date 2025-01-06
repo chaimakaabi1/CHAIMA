@@ -1,0 +1,67 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block title %}Course Index{% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+    {# Add additional styles specific to the admin_dashboard_admins page if needed #}
+{% endblock %}
+
+{% block main %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-16 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                        <th>Image</th>
+                                        <th>Is Active</th>
+                                        <th>Updated At</th>
+                                        <th>Created At</th>
+                                        <th>Course Content</th>
+                                        <th>Instructor ID</th>
+                                        <th>Instructor Name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for course in courses %}
+                                        <tr>
+                                            <td>{{ course.title }}</td>
+                                            <td>{{ course.description }}</td>
+                                            <td>{{ course.price }}</td>
+                                            <td>{{ course.image }}</td>
+                                            <td>{{ course.isactive ? 'Yes' : 'No' }}</td>
+                                            <td>{{ course.updatedat ? course.updatedat|date('Y-m-d') : '' }}</td>
+                                            <td>{{ course.createdat ? course.createdat|date('Y-m-d') : '' }}</td>
+                                            <td>{{ course.coursecontent }}</td>
+                                            <td>{{ course.instructorid }}</td>
+                                            <td>{{ course.instructorname }}</td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="12">No records found</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

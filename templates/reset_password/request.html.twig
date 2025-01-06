@@ -1,0 +1,66 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block title %}Reset password{% endblock %}
+
+{% block styles %}
+    {{ parent() }} {# This will include the parent styles from the dashboard.html.twig file #}
+    {# Add additional styles specific to the admin_dashboard_admins page if needed #}
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+
+{% block sidebar %}
+{% endblock %}
+
+{% block main %}
+    <div class="main-panel  fullscreen">
+        <div class="row">
+            <div class="col-lg-5 mx-auto mt-5 grid-margin stretch-card center">
+                <div class="card center">
+                    <div class="card-body">
+                        <div class="table-responsive">
+    {% for flash_error in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    <h2 class="fa-font">Reset your password</h2>
+
+
+{% block sidebar %}
+{% endblock %}
+
+{% block main %}
+    {% for flash_error in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+<div class="main-panel  fullscreen">
+    <div class="row">
+        <div class="col-lg-5 mx-auto mt-5 grid-margin stretch-card center">
+            <div class="card center">
+                <div class="card-body">
+    <h1>Reset your password</h1>
+
+
+    {{ form_start(requestForm) }}
+        {{ form_row(requestForm.email) }}
+        <div>
+            <small>
+                Enter your email address, and we will send you a
+                link to reset your password.
+            </small>
+        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <button class="btn btn-primary">Send password reset email</button>
+    {{ form_end(requestForm) }}
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

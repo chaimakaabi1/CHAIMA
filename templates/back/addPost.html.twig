@@ -1,0 +1,44 @@
+ 
+ {% extends 'baseBack.html.twig' %}
+
+
+{% block body %} 
+  
+
+<div id="page-wrapper">
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-head-line">Add new post</h1>
+
+            </div>
+        </div>
+        <!-- /. ROW  -->
+      
+    
+       
+          <!--   Kitchen Sink -->
+            <div class="panel panel-default">
+        <div class="form-group">
+          {{form_start(form)}}
+
+
+
+
+            {{ form_row(form.title ,{ 'attr' : { 'class': 'form-control' } }) }}
+            {{ form_row(form.content ,{ 'attr' : { 'class': 'form-control' } }) }}
+            {{ form_row(form.instructor ,{ 'attr' : { 'class': 'form-control' } }) }}
+
+
+            <br>
+                       {{ form_row(form.save ,{ 'attr' : { 'class': 'btn btn-primary ' } }) }}
+
+        </div>          {{form_end(form)}}
+
+              </div>
+             
+             <!-- End  Kitchen Sink -->
+        </div>
+        </div></div> </div>
+
+                        {% endblock %}

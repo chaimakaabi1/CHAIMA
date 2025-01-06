@@ -1,0 +1,54 @@
+{# templates/course/random_coupon.html.twig #}
+
+
+
+{% block stylesheets %}
+    <style>
+        .coupon-container {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .coupon {
+            border: 5px dotted #bbb; /* Dotted border */
+            width: 60%; /* Adjust the width as needed */
+            border-radius: 15px; /* Rounded border */
+            margin: 0 auto; /* Center the coupon */
+            max-width: 600px;
+        }
+
+        .container {
+            padding: 2px 16px;
+            background-color: #f1f1f1;
+        }
+
+        .promo {
+            background: #ccc;
+            padding: 3px;
+        }
+
+        .expire {
+            color: red;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="coupon-container">
+        <div class="coupon">
+            <div class="container">
+                <h3>Company Logo</h3>
+            </div>
+            <img src="{{ asset('uploads/images/' ~ course.image) }}" alt="{{ course.title }}" style="width:100%;">
+            <div class="container" style="background-color:white">
+                <h2><b>{{ fakeCoupon.discount }}% OFF YOUR PURCHASE</b></h2>
+                <p>{{ course.description }}</p>
+            </div>
+            <div class="container">
+                <p>Use Promo Code: <span class="promo">{{ fakeCoupon.code }}</span></p>
+                <p class="expire">Expires: {{ 'now'|date_modify('+' ~ random(1, 30) ~ 'days')|date('M d, Y') }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

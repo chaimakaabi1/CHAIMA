@@ -1,0 +1,90 @@
+{% extends 'prof/profdashboard.html.twig' %}
+
+{% block title %}Course Index{% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+    {# Add additional styles specific to the admin_dashboard_admins page if needed #}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-switch@3/dist/css/bootstrap3/bootstrap-switch.min.css">
+{% endblock %}
+
+{% block main %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-16 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                        <th>Image</th>
+                                        <th>Is Active</th>
+                                        <th>Updated At</th>
+                                        <th>Created At</th>
+                                        <th>Course Content</th>
+                                        <th>Instructor ID</th>
+                                        <th>Instructor Name</th>
+                                        <th>Options</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for course in courses %}
+                                        <tr>
+                                            <td>{{ course.title }}</td>
+                                            <td>{{ course.description }}</td>
+                                            <td>{{ course.price }}</td>
+                                            <td>{{ course.image }}</td>
+                                            <td>
+                                                <input type="checkbox" class="toggle-active" data-course-id="{{ course.courseId }}" {% if course.isactive %}checked{% endif %} data-toggle="switch">
+                                            </td>
+                                            <td>{{ course.updatedat ? course.updatedat|date('Y-m-d') : '' }}</td>
+                                            <td>{{ course.createdat ? course.createdat|date('Y-m-d') : '' }}</td>
+                                            <td>{{ course.coursecontent }}</td>
+                                            <td>{{ course.instructorid }}</td>
+                                            <td>{{ course.instructorname }}</td>
+                                            <td>
+                                                <a href="{{ path('app_course_edit', {'courseId': course.courseId}) }}" class="btn btn-warning">Edit</a>
+                                                <a href="{{ path('app_course_delete', {'courseId': course.courseId}) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this course?')">Delete</a>
+                                                <a href="{{ path('app_course_pdf', {'id': course.courseId}) }}" class="btn btn-info">PDF</a>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="12">No records found</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-switch@3/dist/js/bootstrap-switch.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleActiveButtons = document.querySelectorAll('.toggle-active');
+
+            toggleActiveButtons.forEach(function (button) {
+                $(button).bootstrapSwitch({
+                    size: 'small',
+                    onSwitchChange: function (event, state) {
+                        const courseId = $(this).data('course-id');
+                        // You may need to send an AJAX request to update the "Is Active" status in the database
+                        // For simplicity, I'll just show an alert here
+                        alert(`Toggle "Is Active" for course with ID ${courseId} to ${state}`);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

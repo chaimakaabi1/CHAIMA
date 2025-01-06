@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+{% block navbar %}
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>Coursify</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{{ path('student_dashboard') }}" class="nav-item nav-link">Courses</a>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('student_dashboard_profile') }}">
+                        <i class="mdi mdi-grid-large menu-icon"></i>
+                        <span class="menu-title">My profile</span>
+                    </a>
+                </li>
+            </div>
+            {% if app.user %}
+                <a href="{{ path('app_logout') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Logout<i class="fa fa-arrow-right ms-3"></i></a>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
+            {% endif %}
+        </div>
+    </nav>
+    <!-- Navbar End -->
+{% endblock %}
+{% block content %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-16 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <h2>Current Profile Picture:</h2>
+                                <img src="{{ asset('uploads/' ~ student.getProfilePicture()) }}" alt="Profile Picture">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th>Id</th>
+                                        <td>{{ student.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Username</th>
+                                        <td>{{ student.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Password</th>
+                                        <td>{{ student.password }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{ student.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>FirstName</th>
+                                        <td>{{ student.firstName }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>LastName</th>
+                                        <td>{{ student.lastName }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>DateOfBirth</th>
+                                        <td>{{ student.dateOfBirth ? student.dateOfBirth|date('Y-m-d') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Gender</th>
+                                        <td>{{ student.gender }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>{{ student.address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>PhoneNumber</th>
+                                        <td>{{ student.phoneNumber }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ProfilePicture</th>
+                                        <td>{{ student.profilePicture }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>UserType</th>
+                                        <td>{{ student.userType }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>RegistrationDate</th>
+                                        <td>{{ student.registrationDate ? student.registrationDate|date('Y-m-d') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>major</th>
+                                        <td>{{ student.major }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>currentGradeLevel</th>
+                                        <td>{{ student.currentGradeLevel }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>IsActive</th>
+                                        <td>{{ student.isActive ? 'Yes' : 'No' }}</td>
+                                    </tr>
+                                    {% if not student.isVerified %}
+                                        <tr>
+                                            <th>Verification</th>
+                                            <td>
+                                                <form action="{{ path('student_dashboard_send_verification_code', {'id': student.id}) }}" method="POST">
+                                                    <button type="submit">Verify Now</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <th>IsVerified</th>
+                                            <td>
+                                                <!-- Display a verified tick (check mark) -->
+                                                <span style="color: green;">✓ Verified</span>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+
+                                <a href="{{ path('student_dashboard') }}">back</a>
+                                <br>
+                                <a href="{{ path('student_dashboard_edit', {'id': student.id}) }}">edit</a>
+
+                                {{ include('student/_delete_form.html.twig') }}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
